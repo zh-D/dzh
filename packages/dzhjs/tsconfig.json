@@ -5,6 +5,6 @@
       "rootDir": "src",
       "outDir": "lib",
     },
-    "exclude": ["bin"]
+    "exclude": ["bin", "lib"]
   }
   

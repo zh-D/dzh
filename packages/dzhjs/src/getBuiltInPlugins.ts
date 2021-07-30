@@ -32,3 +32,5 @@ const getBuiltInPlugins = () => {
   ];
   return plugins;
 };
+
+export default getBuiltInPlugins;
