@@ -1,7 +1,8 @@
 import * as path from 'path';
 import * as ora from 'ora';
 import * as fs from 'fs-extra';
-import * as shell from "shelljs";
+import * as shell from 'shelljs';
+
 const downloadGitRepo = require('download-git-repo');
 const execSync = require('child_process').execSync;
 
@@ -12,7 +13,7 @@ export default function downloadAndGenerateProject(
 
   const spinner = ora('download git repo start').start();
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     downloadGitRepo(templateUrl, path.join(process.cwd(), dirname), async (err) => {
       if (err) {
         spinner.fail('download git repo failed.');
