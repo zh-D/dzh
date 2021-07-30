@@ -1,8 +1,7 @@
 import * as path from 'path';
 import * as ora from 'ora';
 import * as fs from 'fs-extra';
-
-const shell = require('shelljs');
+import * as shell from "shelljs";
 const downloadGitRepo = require('download-git-repo');
 const execSync = require('child_process').execSync;
 
@@ -32,10 +31,21 @@ function onDownloadSuccess(dirname: string) {
   shell.cd(dirname);
   // 修改 package.json 的 name 字段
   modifyPackageJson(dirname);
-  // 初始化 git 仓库
-  tryGitInit();
-  // git commit
-  tryGitCommit();
+
+  // Initialize git repo
+  let initializedGit = false;
+  if (tryGitInit()) {
+    initializedGit = true;
+    console.log();
+    console.log('Initialized a git repository.');
+  }
+
+  // Create git commit if git repo was initialized
+  if (initializedGit && tryGitCommit()) {
+    console.log();
+    console.log('Created git commit.');
+  }
+
 }
 
 function modifyPackageJson(dirname: string) {
