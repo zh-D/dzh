@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 const parser = require('yargs-parser');
-import log = require('../../build-scripts/utils/log');
-const forkChildProcessPath = require.resolve('./child-process-start');
 const { fork } = require('child_process');
 const chokidar = require('chokidar');
 const detect = require('detect-port');
 const path = require('path');
+const forkChildProcessPath = require.resolve('./child-process-start');
+const log = require('build-scripts/lib/utils/log');
 
 let child = null;
 const rawArgv = parser(process.argv.slice(2));
@@ -73,6 +73,8 @@ function restartProcess(forkChildProcessPath) {
 }
 
 export default () => {
+  // console.log('start');
+  
   restartProcess(forkChildProcessPath);
 
   const watcher = chokidar.watch(configPath, {

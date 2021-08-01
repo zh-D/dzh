@@ -2,8 +2,8 @@
 const detect = require('detect-port');
 const inquirer = require('inquirer');
 const parse = require('yargs-parser');
-const { start } = require('../../build-scripts');
-import log = require('../../build-scripts/utils/log');
+const { start } = require('build-scripts');
+const log = require('build-scripts/lib/utils/log');
 
 const rawArgv = parse(process.argv.slice(2), {
     configuration: { 'strip-dashed': true }
@@ -36,10 +36,16 @@ export default async function childProcessStart() {
     // ignore _ in rawArgv
     delete rawArgv._;
     try {
+        console.log('start');
+        console.log(start);
+        
+        
         const devServer = await start({
             args: { ...rawArgv },
         });
 
+        console.log(123);
+        
         ['SIGINT', 'SIGTERM'].forEach(function (sig) {
             process.on(sig, function () {
                 devServer.close();
